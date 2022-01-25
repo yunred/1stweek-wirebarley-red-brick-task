@@ -5,6 +5,7 @@ import useInterval from "../utils/hooks/useInterval";
 
 const WireBarley = () => {
   const [intervalFlag, setIntervalFlag] = useState(true);
+
   useEffect(() => {
     UseFetchExchangeRate().then((data) => console.log(data.quotes));
   }, [intervalFlag]);
