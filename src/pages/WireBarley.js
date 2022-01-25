@@ -108,7 +108,7 @@ const WireBarley = (props) => {
       </Button>
       <p>
         수취금액은
-        {`${sendPrice.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}`}
+        {sendPrice !== 0 ? `${sendPrice.toFixed(2).toLocaleString("ko-KR", { maximumFractionDigits: 2 })}` : 0}
         {selected.code} 입니다.
       </p>
     </Container>
