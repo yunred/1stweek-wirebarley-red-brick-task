@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import UseFetchExchangeRate from "../utils/fetch/useFetchExchangeRate";
-import useInterval from "../utils/hooks/useInterval";
 import styled from "styled-components";
 
 const Container = styled.div``;
@@ -10,19 +7,19 @@ const Select = styled.select``;
 const Button = styled.button`
   font-weight: 600;
 `;
-const Alert = styled.Alert`
+const Alert = styled.div`
   color: red;
 `;
 
-const WireBarley = () => {
-  const [intervalFlag, setIntervalFlag] = useState(true);
-
+const WireBarley = (props) => {
   useEffect(() => {
-    UseFetchExchangeRate().then((data) => {
-      let arr = [];
-      let idx = 1;
+    console.log(props.data);
 
-      for (let item of Object.keys(data.quotes)) {
+    let arr = [];
+    let idx = 1;
+
+    if (props.data !== undefined) {
+      for (let item of Object.keys(props.data.quotes)) {
         if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP") {
           arr.push({
             country:
@@ -31,24 +28,18 @@ const WireBarley = () => {
                 : item === "USDJPY"
                 ? "일본"
                 : "필리핀",
-            code: item.substring(3, Object.keys(data.quotes).length),
-            exchange: data.quotes[item],
+            code: item.substring(3, Object.keys(props.data.quotes).length),
+            exchange: props.data.quotes[item],
             idx: idx,
           });
           idx++;
         }
       }
 
-      console.log(myData);
-
       setMyData(arr);
       setSelected(arr[1]);
-    });
-  }, [intervalFlag]);
-
-  useInterval(() => {
-    setIntervalFlag(!intervalFlag);
-  }, 3000);
+    }
+  }, [props.data]);
 
   let [sendPrice, setSendPrice] = useState(0);
   let [price, setPrice] = useState(0);
@@ -92,7 +83,7 @@ const WireBarley = () => {
       </p>
       <Button
         onClick={() => {
-          price === "" || price <= 0 || price > 10000
+          price === "" || price <= 0 || price > 10000 || isNaN(price)
             ? setFlag(true)
             : setFlag(false);
           flag ? setSendPrice(0) : setSendPrice(price * selected.exchange);
