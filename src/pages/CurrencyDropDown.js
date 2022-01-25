@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const CurrencyDropDown = () => {
-  const currencyList = ['USD', 'KRW', 'HKD', 'JPY', 'CNY'];
-  const [baseCurrency, setBaseCurrency] = useState(0)
+const CurrencyDropDown = (props) => {
+  const currencyList = ['USD','CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
   const SubCurrency = [];
+  const baseCurrency = props.base;
+  const setBaseCurrency = props.baseSetter;
+
   for (let i = 0; i < currencyList.length; i++){
     if(i === baseCurrency){
       continue
@@ -34,7 +36,7 @@ list-style: none;
 const DropDown = styled(UL)`
 width: 5em;
 UL{
-  background-color: rgba(1,1,1,0.1);
+  background-color: gray;
   display: none;
 }
 &:hover UL{
