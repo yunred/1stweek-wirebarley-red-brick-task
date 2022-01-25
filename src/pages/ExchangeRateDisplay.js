@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const ExChangeRateDisPlay = (props) => {
     const baseCurrency = props.base;
-    const setBaseCurrency = props.baseSetter;
-    const [selectedCurrency , setSelectedCurrency] = useState(1);
+    const amount = props.amount;
+    const time = props.time;
+    const quotesdata = props.quotesdata;
     const currencyList = ['USD', 'CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
+    const [selectedCurrency , setSelectedCurrency] = useState(baseCurrency == currencyList.length? 0: baseCurrency + 1);
+    useEffect(()=>{
+      setSelectedCurrency(baseCurrency == 0? 1: 0)
+    }, [baseCurrency]);
+
     const selectList = []
     for(let i = 0; i < currencyList.length; i ++){
         if(i === baseCurrency){
@@ -23,13 +29,14 @@ const ExChangeRateDisPlay = (props) => {
     }
     return (
       <>
-        <DisplaySelector>
-            {selectList}
-        </DisplaySelector>
         <Display>
-
+          <DisplaySelector>
+              {selectList}
+          </DisplaySelector>
+          <InfoDiv>
+            <span>{`${currencyList[selectedCurrency]} ${amount? baseCurrency === 0? amount*quotesdata[selectedCurrency]: amount/quotesdata[baseCurrency]*quotesdata[selectedCurrency] : ''}`}</span>
+          </InfoDiv>
         </Display>
-           
       </>
     );
   };
@@ -53,7 +60,12 @@ const DisplaySelector = styled(UL)`
     width: fit-content;
     `
   const Display = styled.div`
-  
+  width: fit-content;
+  `
+  const InfoDiv = styled.div`
+  border: solid 3px rgba(1,1,1,1);
+  border-top: none;
+  height: 15em;
   `
   
   export default ExChangeRateDisPlay;
