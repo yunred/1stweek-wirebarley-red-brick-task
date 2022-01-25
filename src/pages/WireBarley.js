@@ -31,6 +31,20 @@ const WireBarley = (props) => {
     setExchange(myData[e.target.value].exchange);
   };
 
+  const handlePrintFormat = (str) => {
+
+    let input = String(str).split(".");
+    let num1 = Number(input[0]).toLocaleString("ko-KR", { maximumFractionDigits: 2 })
+    let num2;
+
+    if(input[1].length === 0) num2 = `00`;
+    else if(input[1].length === 1) num2 = `${input[1]}0`; 
+    else if(input[1].length === 2) num2 = input[1];
+    else num2 = input[1].substring(0,2);
+
+    return `${num1}.${num2}` 
+  }
+
   useEffect(() => {
     let arr = [];
     let idx = 0;
@@ -83,7 +97,7 @@ const WireBarley = (props) => {
       <p>
         환율:
         {
-          exchange.toLocaleString("ko-KR", { maximumFractionDigits: 2 })
+          exchange !== 0 ? handlePrintFormat(exchange) : 0
         }
         {selected.code}/USD
       </p>
@@ -108,7 +122,7 @@ const WireBarley = (props) => {
       </Button>
       <p>
         수취금액은
-        {sendPrice !== 0 ? `${sendPrice.toFixed(2).toLocaleString("ko-KR", { maximumFractionDigits: 2 })}` : 0}
+        {sendPrice !== 0 ? handlePrintFormat(sendPrice) : 0}
         {selected.code} 입니다.
       </p>
     </Container>
