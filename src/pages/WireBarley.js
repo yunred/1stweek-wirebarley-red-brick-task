@@ -12,15 +12,25 @@ const Alert = styled.div`
 `;
 
 const WireBarley = (props) => {
-  useEffect(() => {
-    console.log(props.data);
+
+  const handleAlertOn = () => {
+    setFlag(true);
+  }
+
+  const handleAlertOff = () => {
+    setSendPrice(price * selected.exchange);
+    setFlag(false);
+  }
+  
+  useEffect( ()=>{
 
     let arr = [];
     let idx = 1;
 
-    if (props.data !== undefined) {
-      for (let item of Object.keys(props.data.quotes)) {
-        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP") {
+    if(props.data !== undefined){
+
+      for(let item of Object.keys(props.data.quotes)){
+        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP"){
           arr.push({
             country:
               item === "USDKRW"
@@ -38,8 +48,9 @@ const WireBarley = (props) => {
 
       setMyData(arr);
       setSelected(arr[1]);
+
     }
-  }, [props.data]);
+  },[props.data])
 
   let [sendPrice, setSendPrice] = useState(0);
   let [price, setPrice] = useState(0);
@@ -84,9 +95,8 @@ const WireBarley = (props) => {
       <Button
         onClick={() => {
           price === "" || price <= 0 || price > 10000 || isNaN(price)
-            ? setFlag(true)
-            : setFlag(false);
-          flag ? setSendPrice(0) : setSendPrice(price * selected.exchange);
+            ? handleAlertOn()
+            : handleAlertOff()
         }}
       >
         Submit
