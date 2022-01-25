@@ -12,17 +12,15 @@ const Alert = styled.div`
 `;
 
 const WireBarley = (props) => {
-  
-  useEffect( ()=>{
-    console.log(props.data)
+  useEffect(() => {
+    console.log(props.data);
 
     let arr = [];
     let idx = 1;
 
-    if(props.data !== undefined){
-
-      for(let item of Object.keys(props.data.quotes)){
-        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP"){
+    if (props.data !== undefined) {
+      for (let item of Object.keys(props.data.quotes)) {
+        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP") {
           arr.push({
             country:
               item === "USDKRW"
@@ -40,9 +38,8 @@ const WireBarley = (props) => {
 
       setMyData(arr);
       setSelected(arr[1]);
-
     }
-  },[props.data])
+  }, [props.data]);
 
   let [sendPrice, setSendPrice] = useState(0);
   let [price, setPrice] = useState(0);
