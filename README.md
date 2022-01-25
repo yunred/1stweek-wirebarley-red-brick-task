@@ -1,6 +1,7 @@
 # 1주차 과제 와이어바알리-레드브릭 기업과제 환율 계산기
 
 ## [GO DEMO🚀](http://wb-rb-task.s3-website.ap-northeast-2.amazonaws.com/RedBrick)
+url = http://wb-rb-task.s3-website.ap-northeast-2.amazonaws.com/RedBrick
 
 ## MEMBER
 
