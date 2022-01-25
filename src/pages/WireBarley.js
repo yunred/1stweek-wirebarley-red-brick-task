@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-import React from "react";
-
-const WireBarley = () => {
-  return <div>와이어바일리입니다</div>;
-=======
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UseFetchExchangeRate from "../utils/fetch/useFetchExchangeRate";
@@ -113,7 +107,6 @@ const WireBarley = () => {
       }  
     </Container>
   );
->>>>>>> Stashed changes
 };
 
 export default WireBarley;
