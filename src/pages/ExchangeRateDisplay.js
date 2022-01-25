@@ -5,10 +5,9 @@ const ExChangeRateDisPlay = (props) => {
     const baseCurrency = props.base;
     const amount = props.amount;
     const time = props.time;
-    console.log(time);
     const quotesdata = props.quotesdata;
     const currencyList = ['USD', 'CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
-    const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const [selectedCurrency , setSelectedCurrency] = useState(baseCurrency === currencyList.length? 0: baseCurrency + 1);
     useEffect(()=>{
       setSelectedCurrency(baseCurrency === 0? 1: 0)
@@ -38,7 +37,7 @@ const ExChangeRateDisPlay = (props) => {
           <InfoDiv>
             <Exchanged><span style={{"marginRight":"5px"}}>{currencyList[selectedCurrency]}</span> <span>{amount? baseCurrency === 0? (amount*quotesdata[selectedCurrency]).toFixed(2): (amount/quotesdata[baseCurrency]*quotesdata[selectedCurrency]).toFixed(2) : ''}</span></Exchanged>
             <Time>기준일 :<br/>
-            {`${time.getUTCFullYear()}-${monthList[time.getUTCMonth() - 1]}-${time.getDate()>10? time.getDate(): `0${time.getDate()}`}`}</Time>
+            {`${time.getFullYear()}-${monthList[time.getMonth()]}-${time.getDate()>10? time.getDate(): `0${time.getDate()}`}`}</Time>
           </InfoDiv>
         </Display>
       </>

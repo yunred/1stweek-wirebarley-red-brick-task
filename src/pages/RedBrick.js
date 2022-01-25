@@ -13,7 +13,7 @@ const Inputbox = styled.input`
   width: 7rem;
 `;
 
-const RedBrick = () => {
+const RedBrick = (props) => {
   const [baseCurrency, setBaseCurrency] = useState(0)    
   const [amount, setAmount] = useState();
   const onInputAmount = (e) => {
@@ -22,7 +22,7 @@ const RedBrick = () => {
     console.log(amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
   };
 
-  const jsonData = require("./data.json");
+  const jsonData = props.data;
   const quotesdata =  [1, jsonData.quotes["USDCAD"],jsonData.quotes["USDKRW"], jsonData.quotes["USDHKD"], jsonData.quotes["USDJPY"], jsonData.quotes["USDCNY"]];
   const time = new Date(parseInt(jsonData.timestamp) * 1000);
   return (
