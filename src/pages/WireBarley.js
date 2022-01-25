@@ -10,7 +10,7 @@ const Select = styled.select``;
 const Button = styled.button`
   font-weight: 600;
 `;
-const Alert = styled.div`
+const Alert = styled.Alert`
   color: red;
 `;
 
