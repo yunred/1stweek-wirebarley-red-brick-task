@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import CurrencyDropDown from './CurrencyDropDown';
 import ExChangeRateDisPlay from './ExchangeRateDisplay';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+=======
+import CurrencyDropDown from "./CurrencyDropDown";
+import React, { useState } from "react";
+import styled from "styled-components";
+>>>>>>> 3ea80606cc30e3a57c6e74dbdd449afdcf1344ca
 
 const Inputbox = styled.input`
   border: solid 2px black;
@@ -13,10 +19,10 @@ const Inputbox = styled.input`
 const RedBrick = () => {
   const [baseCurrency, setBaseCurrency] = useState(0)    
   const [amount, setAmount] = useState();
-  const onInputAmount = e => {
+  const onInputAmount = (e) => {
     e.preventDefault();
-    setAmount(e.target.value.replace(/[^0-9]/g, ''));
-    console.log(amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+    setAmount(e.target.value.replace(/[^0-9]/g, ""));
+    console.log(amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
   };
 
   const jsonData = 
@@ -205,7 +211,7 @@ const RedBrick = () => {
         type="text"
         onChange={onInputAmount}
         value={
-          amount && amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          amount && amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
       />
       <CurrencyDropDown base = {baseCurrency} baseSetter = {setBaseCurrency}/>
