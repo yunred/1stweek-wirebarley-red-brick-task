@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const CurrencyDropDown = () => {
-  const currencyList = ['USD', 'KRW', 'HKD', 'JPY', 'CNY'];
-  const [baseCurrency, setBaseCurrency] = useState(0)
+const CurrencyDropDown = (props) => {
+  const currencyList = ['USD','CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
   const SubCurrency = [];
+  const baseCurrency = props.base;
+  const setBaseCurrency = props.baseSetter;
+
   for (let i = 0; i < currencyList.length; i++){
     if(i === baseCurrency){
       continue
