@@ -5,9 +5,10 @@ const Container = styled.div``;
 const Select = styled.select``;
 const Button = styled.button`
   font-weight: 600;
+  height: 40px;
+  width: 100px;
 `;
 const AlertButton = styled.button`
-  color: red;
 `;
 
 const WireBarley = (props) => {
@@ -15,16 +16,19 @@ const WireBarley = (props) => {
   const [price, setPrice] = useState(0);
   const [myData, setMyData] = useState([]);
   const [selected, setSelected] = useState({});
-  const [flag, setFlag] = useState(false);
+  const [exchange, setExchange] = useState(0);
 
   const handleAlertOn = () => {
-    setFlag(true);
     <AlertButton type="submit" onClick={alert("송금액이 바르지 않습니다!")} />;
   };
 
   const handleAlertOff = () => {
     setSendPrice(price * selected.exchange);
-    setFlag(false);
+  };
+
+  const handleSelect = (e) => {
+    setSelected(myData[e.target.value]);
+    setExchange(myData[e.target.value].exchange);
   };
 
   useEffect(() => {
@@ -51,6 +55,7 @@ const WireBarley = (props) => {
 
       setMyData(arr);
       setSelected(arr[1]);
+      setExchange(arr[1].exchange);
     }
   }, [props.data]);
 
@@ -62,7 +67,7 @@ const WireBarley = (props) => {
         수취국가:
         <Select
           onChange={(e) => {
-            setSelected(myData[e.target.value]);
+            handleSelect(e)
           }}
           value={selected.idx - 1}
         >
@@ -76,7 +81,11 @@ const WireBarley = (props) => {
         </Select>
       </p>
       <p>
-        환율: {selected.exchange} {selected.code}/USD
+        환율:
+        {
+          exchange.toLocaleString("ko-KR", { maximumFractionDigits: 2 })
+        }
+        {selected.code}/USD
       </p>
       <p>
         송금액:
