@@ -15,7 +15,7 @@ const WireBarley = (props) => {
   const [sendPrice, setSendPrice] = useState(0);
   const [price, setPrice] = useState(0);
   const [myData, setMyData] = useState([]);
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState(0);
   const [exchange, setExchange] = useState(0);
 
   const handleAlertOn = () => {
@@ -33,7 +33,7 @@ const WireBarley = (props) => {
 
   useEffect(() => {
     let arr = [];
-    let idx = 1;
+    let idx = 0;
 
     if (props.data !== undefined) {
       for (let item of Object.keys(props.data.quotes)) {
@@ -69,7 +69,7 @@ const WireBarley = (props) => {
           onChange={(e) => {
             handleSelect(e)
           }}
-          value={selected.idx - 1}
+          value={selected.idx}
         >
           {myData.map((item, index) => {
             return (
