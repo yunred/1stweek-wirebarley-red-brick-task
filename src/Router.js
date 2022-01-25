@@ -4,16 +4,27 @@ import WireBarley from './pages/WireBarley';
 import RedBrick from './pages/RedBrick';
 import UseFetchExchangeRate from './utils/fetch/useFetchExchangeRate';
 import useInterval from './utils/hooks/useInterval';
+import { exchangeDataItems } from './store/data';
+import store from './store';
 
 const Router = () => {
-  const [ExchangeData, setExchangeData] = useState();
   const [intervalFlag, setIntervalFlag] = useState(true);
+  const mockupData = exchangeDataItems;
   useEffect(() => {
-    UseFetchExchangeRate().then(data => setExchangeData(data));
-  }, [intervalFlag]);
+    const time = Math.round(new Date().getTime() / 1000);
+    if (store.getLocalStorage()) {
+      if (time - store.getLocalStorage().timestamp > 86400000) {
+        UseFetchExchangeRate().then(data => store.setLocalStorage(data));
+      }
+    } else {
+      store.setLocalStorage(mockupData);
+    }
+  }, [intervalFlag, mockupData]);
   useInterval(() => {
     setIntervalFlag(!intervalFlag);
-  }, 3640000);
+  }, 86400000);
+  const ExchangeData = store.getLocalStorage();
+
   return (
     <BrowserRouter>
       <Routes>
