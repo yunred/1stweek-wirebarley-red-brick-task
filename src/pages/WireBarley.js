@@ -3,34 +3,37 @@ import styled from "styled-components";
 
 const Container = styled.div``;
 const Select = styled.select``;
-
 const Button = styled.button`
   font-weight: 600;
 `;
-const Alert = styled.div`
+const AlertButton = styled.button`
   color: red;
 `;
 
 const WireBarley = (props) => {
+  const [sendPrice, setSendPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [myData, setMyData] = useState([]);
+  const [selected, setSelected] = useState({});
+  const [flag, setFlag] = useState(false);
 
   const handleAlertOn = () => {
     setFlag(true);
-  }
+    <AlertButton type="submit" onClick={alert("송금액이 바르지 않습니다!")} />;
+  };
 
   const handleAlertOff = () => {
     setSendPrice(price * selected.exchange);
     setFlag(false);
-  }
-  
-  useEffect( ()=>{
+  };
 
+  useEffect(() => {
     let arr = [];
     let idx = 1;
 
-    if(props.data !== undefined){
-
-      for(let item of Object.keys(props.data.quotes)){
-        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP"){
+    if (props.data !== undefined) {
+      for (let item of Object.keys(props.data.quotes)) {
+        if (item === "USDKRW" || item === "USDJPY" || item === "USDPHP") {
           arr.push({
             country:
               item === "USDKRW"
@@ -48,15 +51,8 @@ const WireBarley = (props) => {
 
       setMyData(arr);
       setSelected(arr[1]);
-
     }
-  },[props.data])
-
-  let [sendPrice, setSendPrice] = useState(0);
-  let [price, setPrice] = useState(0);
-  let [myData, setMyData] = useState([]);
-  let [selected, setSelected] = useState({});
-  let [flag, setFlag] = useState(false);
+  }, [props.data]);
 
   return (
     <Container>
@@ -96,7 +92,7 @@ const WireBarley = (props) => {
         onClick={() => {
           price === "" || price <= 0 || price > 10000 || isNaN(price)
             ? handleAlertOn()
-            : handleAlertOff()
+            : handleAlertOff();
         }}
       >
         Submit
@@ -106,7 +102,6 @@ const WireBarley = (props) => {
         {`${sendPrice.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}`}
         {selected.code} 입니다.
       </p>
-      {flag ? <Alert>송금액이 바르지 않습니다.</Alert> : null}
     </Container>
   );
 };
