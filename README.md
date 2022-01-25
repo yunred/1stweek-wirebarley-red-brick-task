@@ -27,7 +27,7 @@
 
 ✔️ 수취금액 입력 오류시 팝업 메시지를 띄웁니다.
 
-![wire](https://user-images.githubusercontent.com/84373490/151015110-efa1c740-a073-4579-b3b0-826148f01677.gif)
+![wire](https://user-images.githubusercontent.com/84373490/151025363-fe482e5e-6d0f-4687-9380-086c57788812.gif)
 
 ### 레드브릭
 
