@@ -13,7 +13,7 @@
 
 ### 공통
 
-✔️ 환율정보는 https://currencylayer.com/의 무료 서비스를 이용해서 실시간으로 가져와야 합니다.
+✔️ 환율정보는 https://currencylayer.com/ 의 무료 서비스를 이용해서 실시간으로 가져와야 합니다.
 
 ### 와이어바알리
 
@@ -53,9 +53,8 @@ HTTP 통신을 하는 주체는 각각의 계산기 컴포넌트가 아닌 최�
 //Router.js
 
 <Routes>
-<Route path="/" element={<WireBarley data={ExchangeData} />} />
-<Route path="/RedBrick" element={<RedBrick data=
-{ExchangeData} />} />
+  <Route path="/" element={<WireBarley data={ExchangeData} />} />
+  <Route path="/RedBrick" element={<RedBrick data={ExchangeData} />} />
 <Routes/>
 ```
 
