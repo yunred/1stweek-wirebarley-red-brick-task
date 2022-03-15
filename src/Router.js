@@ -12,57 +12,57 @@ const Router = () => {
   const [intervalFlag, setIntervalFlag] = useState(true);
   const mockupData = exchangeDataItems;
   const [ExchangeData, SetExchangeData] = useState(mockupData);
-  if(store.getLocalStorage() && !store.getLocalStorage().success){
+  if (store.getLocalStorage() && !store.getLocalStorage().success) {
     store.setLocalStorage(mockupData);
   }
 
   useEffect(async () => {
     const time = new Date().getTime();
-    if (store.getLocalStorage()) { //localData exist
+    if (store.getLocalStorage()) {
+      //localData exist
       console.log('localdata is exist');
-      if (time - store.getLocalStorage().timestamp * 1000 > 86400000/* 86400000ms = 24h */) {
-        console.log('data is outdated')
+      if (
+        time - store.getLocalStorage().timestamp * 1000 >
+        86400000 /* 86400000ms = 24h */
+      ) {
+        console.log('data is outdated');
         let fetchedData = false;
-        await UseFetchExchangeRate().then(data => fetchedData = data);
-        if (fetchedData.success){
-          store.setLocalStorage(fetchedData)
+        await UseFetchExchangeRate().then(data => (fetchedData = data));
+        if (fetchedData.success) {
+          store.setLocalStorage(fetchedData);
           SetExchangeData(store.getLocalStorage());
-          console.log('get success',store.getLocalStorage(), ExchangeData);
-          }
-        else{
-          console.log('fetched Fail',fetchedData);
+          console.log('get success', store.getLocalStorage(), ExchangeData);
+        } else {
+          console.log('fetched Fail', fetchedData);
         }
-        }
-      else{
+      } else {
         SetExchangeData(store.getLocalStorage());
-        console.log('data in indated' , store.getLocalStorage(),ExchangeData);
-        
+        console.log('data in indated', store.getLocalStorage(), ExchangeData);
       }
-    } 
-    else { // localData can't find
+    } else {
+      // localData can't find
       console.log('localData can not find');
       store.setLocalStorage(mockupData);
 
-      if (time - store.getLocalStorage().timestamp * 1000 > 86400000/* 86400000ms = 24h */) {
+      if (
+        time - store.getLocalStorage().timestamp * 1000 >
+        86400000 /* 86400000ms = 24h */
+      ) {
         await UseFetchExchangeRate().then(data => store.setLocalStorage(data));
         console.log('data is outdated');
         let fetchedData = false;
-        await UseFetchExchangeRate().then(data => fetchedData = data);
-        if (fetchedData.success){
-          store.setLocalStorage(fetchedData)
+        await UseFetchExchangeRate().then(data => (fetchedData = data));
+        if (fetchedData.success) {
+          store.setLocalStorage(fetchedData);
           SetExchangeData(store.getLocalStorage());
-          console.log('get success',store.getLocalStorage(), ExchangeData);
-          }
-          else{
-            console.log('fetched Fail',fetchedData);
-          }
-      }
-      else{
+          console.log('get success', store.getLocalStorage(), ExchangeData);
+        } else {
+          console.log('fetched Fail', fetchedData);
+        }
+      } else {
         SetExchangeData(store.getLocalStorage());
-        console.log('data in indated' , store.getLocalStorage(),ExchangeData);
-        
+        console.log('data in indated', store.getLocalStorage(), ExchangeData);
       }
-      
     }
   }, [intervalFlag, mockupData]);
 
