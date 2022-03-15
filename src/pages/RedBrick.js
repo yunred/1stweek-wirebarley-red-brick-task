@@ -1,6 +1,7 @@
 import CurrencyDropDown from './CurrencyDropDown';
 import ExChangeRateDisPlay from './ExchangeRateDisplay';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Inputbox = styled.input`
@@ -14,21 +15,23 @@ const Inputbox = styled.input`
 
 const RedBrick = props => {
   const [baseCurrency, setBaseCurrency] = useState(0);
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState('');
   const [pointFlag, setPointFlag] = useState(0);
+  const [isOnePoint, setIsOnePoint] = useState(true);
 
   function toNumberFormat(num) {
-    if (pointFlag === 1) {
+    if (pointFlag === 1 && isOnePoint === true) {
       String(num.toLocaleString('ko-KR') + '.');
     } else {
       return num.toLocaleString('ko-KR');
     }
   }
 
-  const onInputAmount = e => {
+  const handleInputAmount = e => {
     e.preventDefault();
     let num = String(e.target.value.replace(/[^0-9.]/g, ''));
     if (num[num.length - 1] === '.') {
+      setIsOnePoint(num.indexOf('.') === num.length - 1);
       setPointFlag(1);
       setAmount(num.substring(0, num.length - 1));
     } else {
@@ -48,22 +51,27 @@ const RedBrick = props => {
   ];
   const time = new Date(parseInt(jsonData.timestamp) * 1000);
   return (
-    <Container>
-      <Inputbox
-        type="text"
-        onChange={onInputAmount}
-        value={amount && toNumberFormat(Number(amount))}
-      />
-      <DropDown>
-        <CurrencyDropDown base={baseCurrency} baseSetter={setBaseCurrency} />
-      </DropDown>
-      <ExChangeRateDisPlay
-        base={baseCurrency}
-        amount={amount}
-        time={time}
-        quotesdata={quotesdata}
-      />
-    </Container>
+    <>
+      <Link to="/">
+        <button>와이어바알리</button>
+      </Link>
+      <Container>
+        <Inputbox
+          type="text"
+          onChange={handleInputAmount}
+          value={amount && toNumberFormat(Number(amount))}
+        />
+        <DropDown>
+          <CurrencyDropDown base={baseCurrency} baseSetter={setBaseCurrency} />
+        </DropDown>
+        <ExChangeRateDisPlay
+          base={baseCurrency}
+          amount={amount}
+          time={time}
+          quotesdata={quotesdata}
+        />
+      </Container>
+    </>
   );
 };
 
@@ -81,7 +89,7 @@ const Container = styled.div`
 const DropDown = styled.div`
   position: absolute;
   left: 14rem;
-  top: 5.2rem;
+  top: 7.2rem;
 `;
 
 export default RedBrick;
