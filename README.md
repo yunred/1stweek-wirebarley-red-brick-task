@@ -1,7 +1,7 @@
 # 1주차 과제 와이어바알리-레드브릭 기업과제 환율 계산기
 
-## [GO DEMO🚀](http://wb-rb-task.s3-website.ap-northeast-2.amazonaws.com/RedBrick)
-url = http://wb-rb-task.s3-website.ap-northeast-2.amazonaws.com
+## [GO DEMO🚀](https://happy-meninsky-bbc767.netlify.app)
+url = https://happy-meninsky-bbc767.netlify.app
 
 ## MEMBER
 
@@ -117,3 +117,5 @@ if (fetchedData.success) {
 ```
 
 [Router.js🚀](https://github.com/PreOnBoarding-Team-16/1stweek-wirebarley-red-brick-task/blob/main/src/Router.js)
+
+프로젝트 회고 링크 = https://yunred.tistory.com/116
